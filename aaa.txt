@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamified Learning Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: #fff; text-align: center;
+    }
+    header {
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+    }
+    h1 { margin: 0; font-size: 2.2rem; }
+    .btn {
+      display: inline-block;
+      margin: 15px;
+      padding: 12px 20px;
+      background: #ff9800;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: #e68900; }
+    section { padding: 40px 20px; }
+    #avatar {
+      font-size: 4rem;
+      margin: 20px 0;
+    }
+    footer {
+      background: rgba(0,0,0,0.6);
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎓 Gamified Learning Platform</h1>
+    <p>Learning made fun for rural students</p>
+  </header>
+
+  <!-- 🔥 Daily Streak -->
+  <section>
+    <h2>🔥 Daily Streak</h2>
+    <p>You have studied <span id="streak">0</span> days in a row!</p>
+    <button class="btn" onclick="increaseStreak()">Mark Today as Completed ✅</button>
+  </section>
+
+  <!-- 🧑 Avatar Growth -->
+  <section>
+    <h2>🧑 Build Your Avatar</h2>
+    <div id="avatar">🙂</div>
+    <button class="btn" onclick="upgradeAvatar()">Upgrade Avatar 🎉</button>
+  </section>
+
+  <!-- 📚 Quiz -->
+  <section id="quiz">
+    <h2>📚 Quick Quiz</h2>
+    <p>What is 5 + 3 ?</p>
+    <button class="btn" onclick="checkAnswer(6)">6</button>
+    <button class="btn" onclick="checkAnswer(8)">8</button>
+    <button class="btn" onclick="checkAnswer(10)">10</button>
+    <p id="quizResult"></p>
+  </section>
+
+  <!-- 🎮 Play Unlock -->
+  <section>
+    <h2>🎮 Play Time</h2>
+    <p>You must study first (mark daily streak) to unlock games.</p>
+    <button class="btn" id="playBtn" disabled onclick="playGame()">Play Game 🎲</button>
+  </section>
+
+  <footer>
+    🚀 Built with ❤️ for Students | Hosted on GitHub Pages
+  </footer>
+
+  <script>
+    // Daily streak system
+    let streak = localStorage.getItem("streak") || 0;
+    document.getElementById("streak").innerText = streak;
+
+    function increaseStreak() {
+      streak++;
+      localStorage.setItem("streak", streak);
+      document.getElementById("streak").innerText = streak;
+      document.getElementById("playBtn").disabled = false; // unlock games
+      alert("Great job! Your streak is now " + streak + " days 🔥");
+    }
+
+    // Avatar growth
+    let avatarStage = 0;
+    const avatars = ["🙂","😎","🧙‍♂️","👑"];
+    function upgradeAvatar() {
+      avatarStage = (avatarStage + 1) % avatars.length;
+      document.getElementById("avatar").innerText = avatars[avatarStage];
+    }
+
+    // Quiz system
+    function checkAnswer(ans) {
+      let result = document.getElementById("quizResult");
+      if (ans === 8) {
+        result.innerText = "✅ Correct! Well done.";
+      } else {
+        result.innerText = "❌ Try again!";
+      }
+    }
+
+    // Play unlock
+    function playGame() {
+      alert("🎮 Game loading... Have fun!");
+    }
+  </script>
+</body>
+</html>
